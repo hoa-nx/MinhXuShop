@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MinhXuShop.Data.Repositories
 {
-    public interface IProductCategoryRepositpry
+    public interface IProductCategoryRepositpry : IRepository<ProductCategory>
     {
         IEnumerable<ProductCategory> GetByAlias(string alias);
 
