@@ -26,11 +26,18 @@ namespace MinhXuShop.UnitTest.RepositoryTest
         }
 
         [TestMethod]
+        public void PostCategory_Repository_GetAll()
+        {
+            var list = objRepository.GetAll().ToList();
+            Assert.AreEqual(3, list.Count);
+        }
+
+        [TestMethod]
         public void PostCategory_Repository_Create()
         {
             PostCategory category = new PostCategory();
-            category.Name = "Category-Name";
-            category.Alias = "Category-Alias";
+            category.Name = "Test category";
+            category.Alias = "Test-category";
             category.Status = true;
 
             var result = objRepository.Add(category);
@@ -38,14 +45,7 @@ namespace MinhXuShop.UnitTest.RepositoryTest
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.ID);
-
         }
 
-        [TestMethod]
-        public void PostCategory_Repository_GetAll()
-        {
-            var list = objRepository.GetAll().ToList();
-            Assert.AreEqual(3, list.Count);
-        }
     }
 }
