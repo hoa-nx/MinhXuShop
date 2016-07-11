@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201607110352570_AddErrorTable.Designer.cs">
       <DependentUpon>201607110352570_AddErrorTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607110509308_AddErrorTable_FixColumnMesaageName.cs" />
+    <Compile Include="Migrations\201607110509308_AddErrorTable_FixColumnMesaageName.Designer.cs">
+      <DependentUpon>201607110509308_AddErrorTable_FixColumnMesaageName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinhXuShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607110352570_AddErrorTable.resx">
       <DependentUpon>201607110352570_AddErrorTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607110509308_AddErrorTable_FixColumnMesaageName.resx">
+      <DependentUpon>201607110509308_AddErrorTable_FixColumnMesaageName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
