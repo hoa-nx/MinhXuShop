@@ -1,4 +1,5 @@
-﻿using MinhXuShop.Model.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using MinhXuShop.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MinhXuShop.Data
 {
-    public class MinhXuShopDbContext : DbContext
+    public class MinhXuShopDbContext : IdentityDbContext<ApplicationUser>
 
     {
         //contructor 
@@ -39,9 +40,16 @@ namespace MinhXuShop.Data
         public DbSet<Tag> Tags { set; get; }
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
         public DbSet<Error> Errors { set; get; }
+
+        public static MinhXuShopDbContext Create()
+        {
+            return new MinhXuShopDbContext();
+        }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
             //base.OnModelCreating(builder);
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId } );
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
