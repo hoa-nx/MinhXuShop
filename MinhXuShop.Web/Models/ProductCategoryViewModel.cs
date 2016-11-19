@@ -25,7 +25,7 @@ namespace MinhXuShop.Web.Models
 
         public bool? HomeFlag { set; get; }
 
-        public virtual IEnumerable<PostViewModel> Posts { set; get; }
+        public virtual IEnumerable<ProductViewModel> Posts { set; get; }
 
         public DateTime? CreatedDate { set; get; }
 

@@ -1,7 +1,11 @@
 ﻿/// <reference path="D:\Woking\Web\Asp.NetMVC\AngularJS-MVC\Git\MinhXuShop.Web\Assets/admin/libs/angular/angular.js" />
 
 (function () {
-    angular.module('minhxushop', ['minhxushop.common', 'minhxushop.products']).config(config);
+    angular.module('minhxushop',
+        ['minhxushop.common',
+         'minhxushop.products',
+          'minhxushop.product_categories'
+        ]).config(config);
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
     function config($stateProvier, $urlRouterProvider) {
         $stateProvier.state('home', {

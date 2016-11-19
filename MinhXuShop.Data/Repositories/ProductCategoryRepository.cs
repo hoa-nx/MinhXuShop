@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace MinhXuShop.Data.Repositories
 {
-    public interface IProductCategoryRepositpry : IRepository<ProductCategory>
+    public interface IProductCategoryRepository : IRepository<ProductCategory>
     {
         IEnumerable<ProductCategory> GetByAlias(string alias);
 
     }
-    public class ProductCategoryRepositpry : RepositoryBase<ProductCategory> , IProductCategoryRepositpry
+    public class ProductCategoryRepository : RepositoryBase<ProductCategory> , IProductCategoryRepository
 
     {
-        public ProductCategoryRepositpry(IDbFactory dbFactory) : base( dbFactory)
+        public ProductCategoryRepository(IDbFactory dbFactory) : base( dbFactory)
         {
 
         }

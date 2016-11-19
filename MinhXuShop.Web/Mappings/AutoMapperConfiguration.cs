@@ -16,7 +16,10 @@ namespace MinhXuShop.Web.Mappings
             Mapper.CreateMap<Post, PostViewModel>();
             Mapper.CreateMap<PostTag, PostTagViewModel>();
             Mapper.CreateMap<PostCategory, PostCategoryViewModel>();
-            
+            Mapper.CreateMap<ProductCategory, ProductCategoryViewModel>();
+            Mapper.CreateMap<Product, ProductViewModel>();
+            Mapper.CreateMap<ProductTag, ProductTagViewModel>();
+
             /*
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<Post, PostViewModel>();
