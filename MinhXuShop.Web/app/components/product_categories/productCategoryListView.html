@@ -5,7 +5,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Trang chu</a></li>
-        <li><a href="#">San pham</a></li> 
+        <li><a href="#">San pham</a></li>
         <li class="active">Danh muc san pham</li>
     </ol>
 </section>
@@ -36,7 +36,7 @@
                             <th style="width:55%">Tên danh mục</th>
                             <th style="width: 20%">Ngày tạo</th>
                             <th style="width: 10%">Trạng thái</th>
-                            <th>Thao tac</th> 
+                            <th>Thao tac</th>
                         </tr>
                         <tr ng-repeat="item in productCategories">
                             <td>{{item.ID}}</td>
@@ -50,17 +50,20 @@
                                 <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
-                        
+
                     </table>
                 </div>
             </div>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-            
-        <!-- /.box-footer-->
+            <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="getProductCagories(page)"></pager-directive>
+        </div><!-- /.box-footer-->
+    </div><!-- /.box -->
+</section><!-- /.content -->
+<!-- /.box-footer-->
         </div>
-    <!-- /.box -->
+<!-- /.box -->
     </div>
 </section>
 <!-- /.content -->

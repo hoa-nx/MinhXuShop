@@ -4,17 +4,28 @@
     productCategoriesListController.$inject = ['$scope','apiService'];
     function productCategoriesListController($scope, apiService) {
         $scope.productCategories = [];
-        $scope.getProductCategories = getProductCategories;
+        $scope.page = 0;
+        $scope.pagesCount = 0;
+        $scope.getProductCagories = getProductCagories;
 
-        function getProductCategories() {
-            apiService.get('/api/productcategory/getall', null, function (result) {
-                $scope.productCategories = result.data;
-                console.log('Load productcategory ok');
+        function getProductCagories(page) {
+            page = page || 0;
+            var config = {
+                params: {
+                    page: page,
+                    pageSize: 2
+                }
+            }
+            apiService.get('/api/productcategory/getall', config, function (result) {
+                $scope.productCategories = result.data.Items;
+                $scope.page = result.data.Page;
+                $scope.pagesCount = result.data.TotalPages;
+                $scope.totalCount = result.data.TotalCount;
             }, function () {
                 console.log('Load productcategory failed.');
             });
-
         }
-        $scope.getProductCategories();
+
+        $scope.getProductCagories();
     }
 })(angular.module('minhxushop.product_categories'));
