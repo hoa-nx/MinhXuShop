@@ -1,8 +1,8 @@
 ﻿(function (app) {
     app.controller('productCategoriesListController', productCategoriesListController);
 
-    productCategoriesListController.$inject = ['$scope','apiService'];
-    function productCategoriesListController($scope, apiService) {
+    productCategoriesListController.$inject = ['$scope', 'apiService', 'notificationService'];
+    function productCategoriesListController($scope, apiService, notificationService) {
         $scope.productCategories = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
@@ -24,6 +24,11 @@
                 }
             }
             apiService.get('/api/productcategory/getall', config, function (result) {
+                if (result.data.TotalCount == 0) {
+                    notificationService.displayWarning('Không có dữ liệu');
+                } else {
+                    //todo
+                }
                 $scope.productCategories = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
