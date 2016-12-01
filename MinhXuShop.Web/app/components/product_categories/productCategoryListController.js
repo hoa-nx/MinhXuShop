@@ -1,8 +1,8 @@
 ﻿(function (app) {
-    app.controller('productCategoriesListController', productCategoriesListController);
+    app.controller('productCategoryListController', productCategoryListController);
 
-    productCategoriesListController.$inject = ['$scope', 'apiService', 'notificationService'];
-    function productCategoriesListController($scope, apiService, notificationService) {
+    productCategoryListController.$inject = ['$scope', 'apiService', 'notificationService'];
+    function productCategoryListController($scope, apiService, notificationService) {
         $scope.productCategories = [];
         $scope.page = 0;
         $scope.pagesCount = 0;
@@ -24,7 +24,7 @@
                 }
             }
             apiService.get('/api/productcategory/getall', config, function (result) {
-                if (result.data.TotalCount == 0) {
+                if (result.data.TotalCount === 0) {
                     notificationService.displayWarning('Không có dữ liệu');
                 } else {
                     //todo

@@ -17,7 +17,7 @@ namespace MinhXuShop.Data.Infrastructure
         }
         public MinhXuShopDbContext DbContext
         {
-            get { return dbContext ?? (dbContext = new MinhXuShopDbContext()); }
+            get { return dbContext ?? (dbContext = dbFactory.Init()); }
         }
 
         public void Commit()

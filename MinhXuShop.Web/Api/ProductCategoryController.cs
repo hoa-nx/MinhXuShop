@@ -2,6 +2,7 @@
 using MinhXuShop.Model.Models;
 using MinhXuShop.Service;
 using MinhXuShop.Web.Infrastructure.Core;
+using MinhXuShop.Web.Infrastructure.Extentions;
 using MinhXuShop.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -15,26 +16,42 @@ namespace MinhXuShop.Web.Api
     [RoutePrefix("api/productcategory")]
     public class ProductCategoryController : ApiControllerBase
     {
-        IProductCategoryService _productCategoryService;
+        private IProductCategoryService _productCategoryService;
 
-        public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService) 
+        public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService)
             : base(errorService)
         {
             this._productCategoryService = productCategoryService;
-            
+        }
+        [Route("getallparents")]
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                var model = _productCategoryService.GetAll();
+
+                var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
+
+                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                return response;
+            });
         }
 
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage request,string keyword , int page , int pageSize)
+        [HttpGet]
+        public HttpResponseMessage GetAll(HttpRequestMessage request, string keyword, int page, int pageSize = 20)
         {
             return CreateHttpResponse(request, () =>
             {
                 int totalRow = 0;
-
                 var model = _productCategoryService.GetAll(keyword);
+
                 totalRow = model.Count();
-                var query = model.OrderByDescending(x=> x.CreatedDate).Skip(page * pageSize).Take(pageSize);
+                var query = model.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
+
                 var responseData = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(query);
+
                 var paginationSet = new PaginationSet<ProductCategoryViewModel>()
                 {
                     Items = responseData,
@@ -42,8 +59,35 @@ namespace MinhXuShop.Web.Api
                     TotalCount = totalRow,
                     TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
                 };
+                var response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
+                return response;
+            });
+        }
 
-                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
+
+        [Route("create")]
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage Create(HttpRequestMessage request, ProductCategoryViewModel productCategoryVm)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                if (!ModelState.IsValid)
+                {
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var newProductCategory = new ProductCategory();
+                    newProductCategory.UpdateProductCategory(productCategoryVm);
+
+                    _productCategoryService.Add(newProductCategory);
+                    _productCategoryService.Save();
+
+                    var responseData = Mapper.Map<ProductCategory, ProductCategoryViewModel>(newProductCategory);
+                    response = request.CreateResponse(HttpStatusCode.Created, responseData);
+                }
 
                 return response;
             });

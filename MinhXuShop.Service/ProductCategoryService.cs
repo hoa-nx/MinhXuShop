@@ -11,9 +11,9 @@ namespace MinhXuShop.Service
 {
     public interface IProductCategoryService
     {
-        ProductCategory Add(ProductCategory productCategory);
+        ProductCategory Add(ProductCategory ProductCategory);
 
-        void Update(ProductCategory productCategory);
+        void Update(ProductCategory ProductCategory);
 
         ProductCategory Delete(int id);
 
@@ -27,53 +27,50 @@ namespace MinhXuShop.Service
 
         void Save();
     }
+
     public class ProductCategoryService : IProductCategoryService
     {
-        private IProductCategoryRepository _productCategoryRepository;
+        private IProductCategoryRepository _ProductCategoryRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProductCategoryService(IProductCategoryRepository productCategoryRepository, IUnitOfWork unitOfWork)
+        public ProductCategoryService(IProductCategoryRepository ProductCategoryRepository, IUnitOfWork unitOfWork)
         {
-            this._productCategoryRepository = productCategoryRepository;
+            this._ProductCategoryRepository = ProductCategoryRepository;
             this._unitOfWork = unitOfWork;
         }
 
-        public ProductCategory Add(ProductCategory productCategory)
+        public ProductCategory Add(ProductCategory ProductCategory)
         {
-            return _productCategoryRepository.Add(productCategory);
+            return _ProductCategoryRepository.Add(ProductCategory);
         }
 
         public ProductCategory Delete(int id)
         {
-            return _productCategoryRepository.Delete(id);
+            return _ProductCategoryRepository.Delete(id);
         }
 
         public IEnumerable<ProductCategory> GetAll()
         {
-            return _productCategoryRepository.GetAll();
+            return _ProductCategoryRepository.GetAll();
         }
 
         public IEnumerable<ProductCategory> GetAll(string keyword)
         {
             if (!string.IsNullOrEmpty(keyword))
-            {
-                return _productCategoryRepository.GetMulti(x => x.Name.Contains(keyword) || x.Description.Contains(keyword));
-            }
+                return _ProductCategoryRepository.GetMulti(x => x.Name.Contains(keyword) || x.Description.Contains(keyword));
             else
-            {
-                return _productCategoryRepository.GetAll();
-            }
-            
+                return _ProductCategoryRepository.GetAll();
+
         }
 
         public IEnumerable<ProductCategory> GetAllByParentId(int parentId)
         {
-            return _productCategoryRepository.GetMulti(x => x.Status && x.ParentID == parentId);
+            return _ProductCategoryRepository.GetMulti(x => x.Status && x.ParentID == parentId);
         }
 
         public ProductCategory GetById(int id)
         {
-            return _productCategoryRepository.GetSingleById(id);
+            return _ProductCategoryRepository.GetSingleById(id);
         }
 
         public void Save()
@@ -81,9 +78,9 @@ namespace MinhXuShop.Service
             _unitOfWork.Commit();
         }
 
-        public void Update(ProductCategory productCategory)
+        public void Update(ProductCategory ProductCategory)
         {
-            _productCategoryRepository.Update(productCategory);
+            _ProductCategoryRepository.Update(ProductCategory);
         }
     }
 }
