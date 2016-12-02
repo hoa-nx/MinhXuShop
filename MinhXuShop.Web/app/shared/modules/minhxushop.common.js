@@ -1,3 +1,3 @@
 ﻿(function () {
-    angular.module('minhxushop.common', ['ui.router'])
+    angular.module('minhxushop.common', ['ui.router', 'ngBootbox'])
 })();
