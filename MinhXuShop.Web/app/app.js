@@ -1,4 +1,4 @@
-﻿/// <reference path="D:\Woking\Web\Asp.NetMVC\AngularJS-MVC\Git\MinhXuShop.Web\Assets/admin/libs/angular/angular.js" />
+﻿/// <reference path="Assets/admin/libs/angular/angular.js" />
 
 (function () {
     angular.module('minhxushop',

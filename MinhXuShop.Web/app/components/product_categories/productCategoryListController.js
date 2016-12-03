@@ -12,7 +12,7 @@
 
         $scope.deleteProductCategory = deleteProductCategory;
         $scope.selectAll = selectAll;
-        $scope.deleteMulti = deleteMultiple;
+        $scope.deleteMultiple = deleteMultiple;
 
         function deleteMultiple() {
             var listId = [];
