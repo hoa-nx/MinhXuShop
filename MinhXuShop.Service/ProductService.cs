@@ -74,6 +74,9 @@ namespace MinhXuShop.Service
 
         public Product Delete(int id)
         {
+            //delete product tag
+            _productTagRepository.DeleteMulti(x => x.ProductID == id);
+            //delete tag???
             return _productRepository.Delete(id);
         }
 

@@ -157,10 +157,10 @@ namespace MinhXuShop.Web.Api
                 }
                 else
                 {
-                    var oldProductCategory = _productService.Delete(id);
+                    var oldProduct = _productService.Delete(id);
                     _productService.Save();
 
-                    var responseData = Mapper.Map<Product, ProductViewModel>(oldProductCategory);
+                    var responseData = Mapper.Map<Product, ProductViewModel>(oldProduct);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
 
@@ -181,15 +181,15 @@ namespace MinhXuShop.Web.Api
                 }
                 else
                 {
-                    var listProductCategory = new JavaScriptSerializer().Deserialize<List<int>>(checkedProducts);
-                    foreach (var item in listProductCategory)
+                    var listProduct = new JavaScriptSerializer().Deserialize<List<int>>(checkedProducts);
+                    foreach (var item in listProduct)
                     {
                         _productService.Delete(item);
                     }
 
                     _productService.Save();
 
-                    response = request.CreateResponse(HttpStatusCode.OK, listProductCategory.Count);
+                    response = request.CreateResponse(HttpStatusCode.OK, listProduct.Count);
                 }
 
                 return response;
