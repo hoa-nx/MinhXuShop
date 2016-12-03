@@ -1,4 +1,5 @@
-﻿/// <reference path="D:\Woking\Web\Asp.NetMVC\AngularJS-MVC\Git\MinhXuShop.Web\Assets/admin/libs/angular/angular.js" />
+﻿
+/// <reference path="/Assets/admin/libs/angular/angular.js" />
 
 (function () {
 	angular.module('minhxushop.products', ['minhxushop.common']).config(config);
@@ -6,14 +7,18 @@
 	config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
 	function config($stateProvider, $urlRouterProvider) {
-		$stateProvider.state('products', {
-			url: "/products",
+	    $stateProvider.state('products', {
+	        url: "/products",
 			templateUrl: "/app/components/products/productListView.html",
 			controller: "productListController"
 		}).state('product_add', {
 			url: "/product_add",
 			templateUrl: "/app/components/products/productAddView.html",
 			controller: "productAddController"
+		}).state('product_edit', {
+		    url: "/product_edit/:id",
+		    templateUrl: "/app/components/products/productEditView.html",
+		    controller: "productEditController"
 		});
 	}
 })();

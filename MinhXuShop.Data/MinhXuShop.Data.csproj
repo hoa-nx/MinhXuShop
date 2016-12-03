@@ -84,6 +84,14 @@
     <Compile Include="Migrations\201611151524178_ChangeKey.Designer.cs">
       <DependentUpon>201611151524178_ChangeKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612030959186_DeleteSomeColumnOnProduct.cs" />
+    <Compile Include="Migrations\201612030959186_DeleteSomeColumnOnProduct.Designer.cs">
+      <DependentUpon>201612030959186_DeleteSomeColumnOnProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612031011543_AddSomeColumnOnProduct.cs" />
+    <Compile Include="Migrations\201612031011543_AddSomeColumnOnProduct.Designer.cs">
+      <DependentUpon>201612031011543_AddSomeColumnOnProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinhXuShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,6 +143,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611151524178_ChangeKey.resx">
       <DependentUpon>201611151524178_ChangeKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612030959186_DeleteSomeColumnOnProduct.resx">
+      <DependentUpon>201612030959186_DeleteSomeColumnOnProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612031011543_AddSomeColumnOnProduct.resx">
+      <DependentUpon>201612031011543_AddSomeColumnOnProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

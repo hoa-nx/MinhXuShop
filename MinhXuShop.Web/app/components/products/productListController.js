@@ -89,9 +89,7 @@
             apiService.get('/api/product/getall', config, function (result) {
                 if (result.data.TotalCount === 0) {
                     notificationService.displayWarning('Không có dữ liệu');
-                } else {
-                    //todo
-                }
+                } 
                 $scope.products = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;

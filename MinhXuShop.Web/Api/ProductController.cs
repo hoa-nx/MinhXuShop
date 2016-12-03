@@ -17,6 +17,7 @@ namespace MinhXuShop.Web.Api
     [RoutePrefix("api/product")]
     public class ProductController : ApiControllerBase
     {
+        #region Initialize
         private IProductService _productService;
 
         public ProductController(IErrorService errorService, IProductService productService)
@@ -24,6 +25,9 @@ namespace MinhXuShop.Web.Api
         {
             this._productService = productService;
         }
+
+        #endregion
+
         [Route("getallparents")]
         [HttpGet]
         public HttpResponseMessage GetAll(HttpRequestMessage request)
@@ -38,7 +42,6 @@ namespace MinhXuShop.Web.Api
                 return response;
             });
         }
-
         [Route("getbyid/{id:int}")]
         [HttpGet]
         public HttpResponseMessage GetById(HttpRequestMessage request, int id)
@@ -50,10 +53,10 @@ namespace MinhXuShop.Web.Api
                 var responseData = Mapper.Map<Product, ProductViewModel>(model);
 
                 var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+
                 return response;
             });
         }
-
 
         [Route("getall")]
         [HttpGet]
@@ -85,7 +88,7 @@ namespace MinhXuShop.Web.Api
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
-        public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productVm)
+        public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productCategoryVm)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -97,8 +100,7 @@ namespace MinhXuShop.Web.Api
                 else
                 {
                     var newProduct = new Product();
-                    newProduct.UpdateProduct(productVm);
-
+                    newProduct.UpdateProduct(productCategoryVm);
                     newProduct.CreatedDate = DateTime.Now;
                     _productService.Add(newProduct);
                     _productService.Save();
@@ -126,9 +128,10 @@ namespace MinhXuShop.Web.Api
                 else
                 {
                     var dbProduct = _productService.GetById(productVm.ID);
-                    dbProduct.UpdateProduct(productVm);
 
+                    dbProduct.UpdateProduct(productVm);
                     dbProduct.UpdatedDate = DateTime.Now;
+
                     _productService.Update(dbProduct);
                     _productService.Save();
 
@@ -154,21 +157,20 @@ namespace MinhXuShop.Web.Api
                 }
                 else
                 {
-                    var oldProduct = _productService.Delete(id);
+                    var oldProductCategory = _productService.Delete(id);
                     _productService.Save();
 
-                    var responseData = Mapper.Map<Product, ProductViewModel>(oldProduct);
+                    var responseData = Mapper.Map<Product, ProductViewModel>(oldProductCategory);
                     response = request.CreateResponse(HttpStatusCode.Created, responseData);
                 }
 
                 return response;
             });
         }
-
         [Route("deletemulti")]
         [HttpDelete]
         [AllowAnonymous]
-        public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedProduct)
+        public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedProducts)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -179,20 +181,19 @@ namespace MinhXuShop.Web.Api
                 }
                 else
                 {
-                    var listProduct = new JavaScriptSerializer().Deserialize<List<int>>(checkedProduct);
-                    foreach (var item in listProduct)
+                    var listProductCategory = new JavaScriptSerializer().Deserialize<List<int>>(checkedProducts);
+                    foreach (var item in listProductCategory)
                     {
                         _productService.Delete(item);
                     }
 
                     _productService.Save();
 
-                    response = request.CreateResponse(HttpStatusCode.Created, listProduct.Count);
+                    response = request.CreateResponse(HttpStatusCode.OK, listProductCategory.Count);
                 }
 
                 return response;
             });
         }
-
     }
 }

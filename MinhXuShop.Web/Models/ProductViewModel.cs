@@ -5,7 +5,6 @@ using System.Web;
 
 namespace MinhXuShop.Web.Models
 {
-    [Serializable]
     public class ProductViewModel
     {
         public int ID { set; get; }
@@ -55,6 +54,7 @@ namespace MinhXuShop.Web.Models
         public int Quantity { set; get; }
 
         public decimal OriginalPrice { set; get; }
+
         public virtual ProductCategoryViewModel ProductCategory { set; get; }
     }
 }
