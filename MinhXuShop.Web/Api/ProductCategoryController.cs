@@ -15,6 +15,7 @@ using System.Web.Script.Serialization;
 namespace MinhXuShop.Web.Api
 {
     [RoutePrefix("api/productcategory")]
+    [Authorize]
     public class ProductCategoryController : ApiControllerBase
     {
         private IProductCategoryService _productCategoryService;
@@ -84,7 +85,6 @@ namespace MinhXuShop.Web.Api
 
         [Route("create")]
         [HttpPost]
-        [AllowAnonymous]
         public HttpResponseMessage Create(HttpRequestMessage request, ProductCategoryViewModel productCategoryVm)
         {
             return CreateHttpResponse(request, () =>
@@ -100,6 +100,7 @@ namespace MinhXuShop.Web.Api
                     newProductCategory.UpdateProductCategory(productCategoryVm);
 
                     newProductCategory.CreatedDate = DateTime.Now;
+                    newProductCategory.CreatedBy = User.Identity.Name;
                     _productCategoryService.Add(newProductCategory);
                     _productCategoryService.Save();
 
@@ -113,7 +114,6 @@ namespace MinhXuShop.Web.Api
 
         [Route("update")]
         [HttpPut]
-        [AllowAnonymous]
         public HttpResponseMessage Update(HttpRequestMessage request, ProductCategoryViewModel productCategoryVm)
         {
             return CreateHttpResponse(request, () =>
@@ -129,6 +129,7 @@ namespace MinhXuShop.Web.Api
                     dbProductCategory.UpdateProductCategory(productCategoryVm);
 
                     dbProductCategory.UpdatedDate = DateTime.Now;
+                    dbProductCategory.UpdatedBy = User.Identity.Name;
                     _productCategoryService.Update(dbProductCategory);
                     _productCategoryService.Save();
 
@@ -142,7 +143,6 @@ namespace MinhXuShop.Web.Api
 
         [Route("delete")]
         [HttpDelete]
-        [AllowAnonymous]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             return CreateHttpResponse(request, () =>
@@ -167,7 +167,6 @@ namespace MinhXuShop.Web.Api
 
         [Route("deletemulti")]
         [HttpDelete]
-        [AllowAnonymous]
         public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedProductCategory)
         {
             return CreateHttpResponse(request, () =>

@@ -15,6 +15,7 @@ using System.Web.Script.Serialization;
 namespace MinhXuShop.Web.Api
 {
     [RoutePrefix("api/product")]
+    [Authorize]
     public class ProductController : ApiControllerBase
     {
         #region Initialize
@@ -87,7 +88,6 @@ namespace MinhXuShop.Web.Api
 
         [Route("create")]
         [HttpPost]
-        [AllowAnonymous]
         public HttpResponseMessage Create(HttpRequestMessage request, ProductViewModel productCategoryVm)
         {
             return CreateHttpResponse(request, () =>
@@ -101,6 +101,8 @@ namespace MinhXuShop.Web.Api
                 {
                     var newProduct = new Product();
                     newProduct.UpdateProduct(productCategoryVm);
+
+                    newProduct.CreatedBy = User.Identity.Name;
                     newProduct.CreatedDate = DateTime.Now;
                     _productService.Add(newProduct);
                     _productService.Save();
@@ -115,7 +117,6 @@ namespace MinhXuShop.Web.Api
 
         [Route("update")]
         [HttpPut]
-        [AllowAnonymous]
         public HttpResponseMessage Update(HttpRequestMessage request, ProductViewModel productVm)
         {
             return CreateHttpResponse(request, () =>
@@ -130,6 +131,7 @@ namespace MinhXuShop.Web.Api
                     var dbProduct = _productService.GetById(productVm.ID);
 
                     dbProduct.UpdateProduct(productVm);
+                    dbProduct.UpdatedBy  = User.Identity.Name;
                     dbProduct.UpdatedDate = DateTime.Now;
 
                     _productService.Update(dbProduct);
@@ -145,7 +147,6 @@ namespace MinhXuShop.Web.Api
 
         [Route("delete")]
         [HttpDelete]
-        [AllowAnonymous]
         public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
             return CreateHttpResponse(request, () =>
@@ -169,7 +170,6 @@ namespace MinhXuShop.Web.Api
         }
         [Route("deletemulti")]
         [HttpDelete]
-        [AllowAnonymous]
         public HttpResponseMessage DeleteMulti(HttpRequestMessage request, string checkedProducts)
         {
             return CreateHttpResponse(request, () =>

@@ -14,6 +14,7 @@ using System.Web.Http;
 namespace MinhXuShop.Web.Api
 {
     [RoutePrefix("api/postcategory")]
+    [Authorize]
     public class PostCategoryController : ApiControllerBase
     {
         IPostCategoryService _postCategoryService;
@@ -52,6 +53,8 @@ namespace MinhXuShop.Web.Api
                {
                    PostCategory newPostCategory = new PostCategory();
                    newPostCategory.UpdatePostCategory(postCategoryVm);
+                   newPostCategory.CreatedBy = User.Identity.Name;
+                   newPostCategory.CreatedDate = DateTime.Now;
 
                    var category = _postCategoryService.Add(newPostCategory);
                    _postCategoryService.Save();
@@ -78,7 +81,8 @@ namespace MinhXuShop.Web.Api
                     var postCategoryDb = _postCategoryService.GetById(postCategoryVm.ID);
 
                     postCategoryDb.UpdatePostCategory(postCategoryVm);
-                     
+                    postCategoryDb.UpdatedBy = User.Identity.Name;
+                    postCategoryDb.UpdatedDate= DateTime.Now;
                     _postCategoryService.Update(postCategoryDb);
                     _postCategoryService.Save();
 
