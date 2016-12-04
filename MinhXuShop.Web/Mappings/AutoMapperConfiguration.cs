@@ -21,6 +21,7 @@ namespace MinhXuShop.Web.Mappings
             Mapper.CreateMap<Product, ProductViewModel>();
             Mapper.CreateMap<ProductTag, ProductTagViewModel>();
             Mapper.CreateMap<Footer, FooterViewModel>();
+            Mapper.CreateMap<Slide, SlideViewModel>();
             /*
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<Post, PostViewModel>();
