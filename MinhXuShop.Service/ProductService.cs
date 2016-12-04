@@ -27,6 +27,11 @@ namespace MinhXuShop.Service
         IEnumerable<Product> GetHotProduct(int top);
 
         IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int  totalRow);
+
+        IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow);
+
+        IEnumerable<String> GetListProductByName(string name);
+
         Product GetById(int id);
 
         void Save();
@@ -150,6 +155,36 @@ namespace MinhXuShop.Service
         public IEnumerable<Product> GetListProductByCategoryIdPaging(int categoryId, int page, int pageSize, string sort, out int totalRow)
         {
             var query = _productRepository.GetMulti(x => x.Status && x.CategoryID == categoryId);
+            switch (sort)
+            {
+                case "popular":
+                    query = query.OrderByDescending(x => x.ViewCount);
+                    break;
+
+                case "discout":
+                    query = query.OrderByDescending(x => x.PromotionPrice);
+                    break;
+
+                case "price":
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.CreatedDate);
+                    break;
+            }
+            totalRow = query.Count();
+            return query.Skip(page - 1 * pageSize).Take(pageSize);
+        }
+
+        public IEnumerable<String> GetListProductByName(string name)
+        {
+            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(name)).Select(y=>y.Name);
+        }
+
+        public IEnumerable<Product> Search(string keyword, int page, int pageSize, string sort, out int totalRow)
+        {
+
+            var query = _productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword));
             switch (sort)
             {
                 case "popular":

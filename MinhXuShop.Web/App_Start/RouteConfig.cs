@@ -13,7 +13,12 @@ namespace MinhXuShop.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+                    name: "Search",
+                    url: "tim-kiem.html",
+                    defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
+                    namespaces: new string[] { "MinhXuShop.Web.Controllers" }
+            );
             routes.MapRoute(
                     name: "Login",
                     url: "dang-nhap.html",
