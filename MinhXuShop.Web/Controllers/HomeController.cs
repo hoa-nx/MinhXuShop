@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
+using MinhXuShop.Model.Models;
+using MinhXuShop.Service;
+using MinhXuShop.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +12,14 @@ namespace MinhXuShop.Web.Controllers
 {
     public class HomeController : Controller
     {
+        IProductCategoryService _productCategoryService;
+        ICommonService   _commonService;
+
+        public HomeController(IProductCategoryService productCategoryService , ICommonService commonService)
+        {
+            _productCategoryService = productCategoryService;
+            _commonService = commonService;
+        }
         public ActionResult Index()
         {
             return View();
@@ -30,7 +42,10 @@ namespace MinhXuShop.Web.Controllers
         [ChildActionOnly]
         public ActionResult Footer()
         {
-            return PartialView("Footer"); 
+            var footerModel = _commonService.GetFooter();
+            var footerViewModel = Mapper.Map<Footer, FooterViewModel>(footerModel);
+
+            return PartialView("Footer", footerViewModel); 
         }
 
         [ChildActionOnly]
@@ -42,7 +57,10 @@ namespace MinhXuShop.Web.Controllers
         [ChildActionOnly]
         public ActionResult Category()
         {
-            return PartialView("Category");
+            var model = _productCategoryService.GetAll();
+            var listProductCategoryViewModel = Mapper.Map<IEnumerable<ProductCategory>, IEnumerable<ProductCategoryViewModel>>(model);
+
+            return PartialView("Category", listProductCategoryViewModel);
         }
 
     }
