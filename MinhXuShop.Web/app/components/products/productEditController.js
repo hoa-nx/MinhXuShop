@@ -69,6 +69,13 @@
             finder.popup();
         }
 
+        $scope.DeleteImage = function (img) {
+            var index = $scope.moreImages.indexOf(img);
+            if (index > -1) {
+                $scope.moreImages.splice(index, 1);
+            }
+        }
+
         loadProductCategory();
         loadProductDetail();
     }
